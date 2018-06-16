@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 import { ANIMALES } from "../../data/data.animales";
 import { Animal } from "../../interfaces/animal.interface";
 import { Refresher, reorderArray } from "ionic-angular";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage {
-
   animales: Animal[] = [];
   audio = new Audio();
   audioTiempo: any;
@@ -17,7 +16,6 @@ export class HomePage {
   constructor() {
     // slice para clonar array
     this.animales = ANIMALES.slice(0);
-
   }
 
   reproducir(animal: Animal) {
@@ -35,8 +33,10 @@ export class HomePage {
 
     animal.reproduciendo = true;
 
-    this.audioTiempo = setTimeout(() => animal.reproduciendo = false, animal.duracion * 1000);
-
+    this.audioTiempo = setTimeout(
+      () => (animal.reproduciendo = false),
+      animal.duracion * 1000
+    );
   }
 
   private pausar_audio(animalSel: Animal) {
@@ -52,7 +52,6 @@ export class HomePage {
   }
   borrar_animal(idx: number) {
     this.animales.splice(idx, 1);
-
   }
   recargar_animales(refresher: Refresher) {
     console.log("Inicio del Refresh");
@@ -60,14 +59,11 @@ export class HomePage {
       console.log("Termino el Refresh");
       this.animales = ANIMALES.slice(0);
       refresher.complete();
-    }, 1500)
+    }, 1500);
   }
 
   reordenar_animales(indices: any) {
     console.log(indices);
     this.animales = reorderArray(this.animales, indices);
-
   }
-
-
 }
